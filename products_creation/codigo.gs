@@ -26,3 +26,27 @@ function getToken() {
     throw new Error("Failed to fetch token");
   }
 }
+
+function removeSpecialChars(str) {
+  if (!str) {
+    return ''
+  }
+
+  const result = str
+    .replace(/["\\\n\r\t]/g, '');
+
+  return result;
+}
+
+function updateName(rowNumber, name, reference) {
+  Utilities.sleep(5000);
+
+  console.log("Updating description and reference of row #", rowNumber)
+  var desc = sheet.getRange(Number(rowNumber), 15);
+  // Set the new value - Description
+  desc.setValue(removeSpecialChars(name));
+
+  var ref = sheet.getRange(Number(rowNumber), 11);
+  // Set the new value - Reference
+  ref.setValue(removeSpecialChars(reference));
+}
